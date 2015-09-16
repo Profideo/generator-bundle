@@ -1,4 +1,5 @@
 {
+    "name": "profideo/generator-bundle",
     "require": {
         "php": ">=5.4"
     },
