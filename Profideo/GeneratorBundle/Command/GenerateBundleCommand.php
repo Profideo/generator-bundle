@@ -20,9 +20,9 @@ class GenerateBundleCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setDefinition(array(
+            ->setDefinition([
                 new InputArgument('name', InputArgument::REQUIRED, 'The name of the broadcast client.'),
-            ))
+            ])
             ->setName('profideo:generate-bundle');
     }
 

@@ -18,7 +18,7 @@ class BundleGenerator extends SensioBundleGenerator
                 throw new \RuntimeException(sprintf('Unable to generate the broadcat client bundle as the target directory "%s" exists but is a file.', realpath($dir)));
             }
             $files = scandir($dir);
-            if ($files != array('.', '..')) {
+            if ($files != ['.', '..']) {
                 throw new \RuntimeException(sprintf('Unable to generate the broadcat client bundle as the target directory "%s" is not empty.', realpath($dir)));
             }
             if (!is_writable($dir)) {
