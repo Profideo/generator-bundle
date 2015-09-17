@@ -5,7 +5,6 @@ namespace Profideo\GeneratorBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 use Profideo\GeneratorBundle\Generator\BundleGenerator;
 use Profideo\GeneratorBundle\Manipulator\KernelManipulator;
 
@@ -19,11 +18,7 @@ class GenerateBundleCommand extends ContainerAwareCommand
      */
     protected function configure()
     {
-        $this
-            ->setDefinition([
-                new InputArgument('name', InputArgument::REQUIRED, 'The name of the broadcast client.'),
-            ])
-            ->setName('profideo:generate-bundle');
+        $this->setName('profideo:generate-bundle');
     }
 
     /**
@@ -31,9 +26,9 @@ class GenerateBundleCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $name = $input->getArgument('name');
-
         $containter = $this->getContainer();
+
+        $name = $containter->getParameter('profideo_generator.bundle_name');
         $baseNamespace = $containter->getParameter('profideo_generator.base_namespace');
         $parentBundle = $containter->getParameter('profideo_generator.parent_bundle');
         $bundle = $containter->getParameter('profideo_generator.class_prefix').ucfirst($name).'Bundle';
