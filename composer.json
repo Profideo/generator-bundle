@@ -1,9 +1,7 @@
 {
     "name": "profideo/generator-bundle",
     "require": {
-        "php": ">=5.4"
-    },
-    "require-dev": {
+        "php": ">=5.4",
         "sensio/generator-bundle": "~2.3"
     },
     "autoload": {
