@@ -9,7 +9,7 @@ class BundleGenerator extends SensioBundleGenerator
     /** 
      * Overload to generate only bundle class.
      */
-    public function generate($namespace, $bundle, $dir, $format, $structure, $parameters=[])
+    public function generate($namespace, $bundle, $dir, $format, $structure, $parameters = [])
     {
         $dir .= '/'.strtr($namespace, '\\', '/');
 
@@ -27,7 +27,7 @@ class BundleGenerator extends SensioBundleGenerator
         }
 
         $parameters = array_merge($parameters, ['namespace' => $namespace, 'bundle' => $bundle]);
- 
+
         $this->renderFile('Bundle.php.twig', $dir.'/'.$bundle.'.php', $parameters);
     }
 }

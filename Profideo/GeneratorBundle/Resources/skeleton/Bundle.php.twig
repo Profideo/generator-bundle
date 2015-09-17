@@ -11,10 +11,10 @@ class {{ bundle }} extends Bundle
 {% endblock class_definition %}
 {
 {% block class_body %}
-{% if (parent_bundle is not empty) %}
+{% if (parent is not empty) %}
     public function getParent()
     {
-        return '{{ parent_bundle }}';
+        return '{{ parent }}';
     }
 {% endif %}
 {% endblock class_body %}

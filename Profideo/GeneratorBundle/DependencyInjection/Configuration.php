@@ -16,21 +16,19 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('profideo_generator');
 
         $rootNode
-            ->children()
-                ->scalarNode('base_namespace')
-                    ->isRequired()
-                ->end()
-                ->scalarNode('bundle_name')
-                    ->isRequired()
-                ->end()
-                ->scalarNode('parent_bundle')
-                    ->defaultNull()
-                ->end()
-                ->scalarNode('class_prefix')
-                    ->defaultNull()
-                ->end()
-            ->end();
-        
+             ->children()
+                 ->arrayNode('bundles')
+                     ->prototype('array')
+                          ->children()
+                              ->scalarNode('name')->isRequired()->end()
+                              ->scalarNode('base_namespace')->isRequired()->end()
+                              ->scalarNode('parent')->defaultNull()->end()
+                              ->scalarNode('class_prefix')->defaultNull()->end()
+                          ->end()
+                     ->end()
+                 ->end()
+             ->end();
+
         return $treeBuilder;
     }
 }
