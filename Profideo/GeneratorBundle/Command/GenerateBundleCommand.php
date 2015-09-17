@@ -34,9 +34,9 @@ class GenerateBundleCommand extends ContainerAwareCommand
         $name = $input->getArgument('name');
 
         $containter = $this->getContainer();
-        $baseNamespace = $containter->getParameter('Profideo_generator.base_namespace');
-        $parentBundle = $containter->getParameter('Profideo_generator.parent_bundle');
-        $bundle = $containter->getParameter('Profideo_generator.class_prefix').ucfirst($name).'Bundle';
+        $baseNamespace = $containter->getParameter('profideo_generator.base_namespace');
+        $parentBundle = $containter->getParameter('profideo_generator.parent_bundle');
+        $bundle = $containter->getParameter('profideo_generator.class_prefix').ucfirst($name).'Bundle';
         $namespace = "$baseNamespace\\".ucfirst($name).'Bundle';
 
         $generator = new BundleGenerator($this->getContainer()->get('filesystem'));

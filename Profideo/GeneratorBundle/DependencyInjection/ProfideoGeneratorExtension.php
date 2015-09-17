@@ -13,8 +13,8 @@ class ProfideoGeneratorExtension extends Extension
 
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('Profideo_generator.base_namespace', $config['base_namespace']);
-        $container->setParameter('Profideo_generator.parent_bundle', $config['parent_bundle']);
-        $container->setParameter('Profideo_generator.class_prefix', $config['class_prefix']);
+        $container->setParameter('profideo_generator.base_namespace', $config['base_namespace']);
+        $container->setParameter('profideo_generator.parent_bundle', $config['parent_bundle']);
+        $container->setParameter('profideo_generator.class_prefix', $config['class_prefix']);
     }
 }
