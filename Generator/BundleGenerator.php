@@ -7,7 +7,8 @@ use Sensio\Bundle\GeneratorBundle\Generator\BundleGenerator as SensioBundleGener
 class BundleGenerator extends SensioBundleGenerator
 {
     /** 
-     * Overload to generate only bundle class.
+     * Overloads to generate only bundle class.
+     * Moreover, parameters can be transmitted to the twig template.
      */
     public function generate($namespace, $bundle, $dir, $format, $structure, $parameters = [])
     {
@@ -26,7 +27,7 @@ class BundleGenerator extends SensioBundleGenerator
             }
         }
 
-        $parameters = array_merge($parameters, ['namespace' => $namespace, 'bundle' => $bundle]);
+        $parameters += ['namespace' => $namespace, 'bundle' => $bundle, 'parent' => null];
 
         $this->renderFile('Bundle.php.twig', $dir.'/'.$bundle.'.php', $parameters);
     }

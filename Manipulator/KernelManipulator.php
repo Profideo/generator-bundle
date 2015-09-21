@@ -4,14 +4,15 @@ namespace Profideo\GeneratorBundle\Manipulator;
 
 use Sensio\Bundle\GeneratorBundle\Manipulator\KernelManipulator as SensioKernelManipulator;
 
+/**
+ * @codeCoverageIgnore
+ */
 class KernelManipulator extends SensioKernelManipulator
 {
     /**
-     * Remove all bundles classes located in a namespace.
+     * Removes all bundles classes located in a namespace declared in kernel.
      *
      * @param string $namespace
-     *
-     * @return bool
      */
     public function removeNamespace($namespace)
     {

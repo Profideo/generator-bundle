@@ -2,19 +2,20 @@
 
 namespace Profideo\GeneratorBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Profideo\GeneratorBundle\Generator\BundleGenerator;
 use Profideo\GeneratorBundle\Manipulator\KernelManipulator;
+use Sensio\Bundle\GeneratorBundle\Command\GeneratorCommand;
+use Symfony\Component\HttpKernel\KernelInterface;
 
-/*
- *  Generates bundles defined in configuration that could be a child of another one and enables it in AppKernel.
+/**
+ * Generates bundles defined in configuration and enables it in AppKernel.
  */
-class GenerateBundlesCommand extends ContainerAwareCommand
+class GenerateBundlesCommand extends GeneratorCommand
 {
     /**
-     * @see Command
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -38,7 +39,7 @@ class GenerateBundlesCommand extends ContainerAwareCommand
             $bundleName = $bundle['class_prefix'].ucfirst($bundle['name']).'Bundle';
             $namespace = $bundle['base_namespace'].'\\'.ucfirst($bundle['name']).'Bundle';
 
-            $generator = new BundleGenerator($container->get('filesystem'));
+            $generator = $this->getGenerator();
             $generator->setSkeletonDirs([__DIR__.'/../Resources/skeleton']);
             $generator->generate($namespace, $bundleName, 'src', null, null, ['parent' => $bundle['parent']]);
 
@@ -46,12 +47,34 @@ class GenerateBundlesCommand extends ContainerAwareCommand
                              (!empty($bundle['parent']) ? " as child of '{$bundle['parent']}'" : '').
                              ' : <info>OK</info>');
 
-            $kernelManipulator = new KernelManipulator($container->get('kernel'));
-            $kernelManipulator->removeNamespace($bundle['base_namespace']);
-            $kernelManipulator->addBundle("$namespace\\$bundleName");
+            $this->updateKernel($container->get('kernel'), $bundle['base_namespace'], "$namespace\\$bundleName");
 
             $output->writeln("Enabling bundle '$namespace\\$bundleName' in AppKernel and disabling others that are".
                              " included in '{$bundle['base_namespace']}' : <info>OK</info>");
         }
+    }
+
+    /**
+     * Removes all bundles in $baseNamespace and add bundle $bundle.
+     *
+     * @param KernelInterface $kernel
+     * @param string          $baseNamespace
+     * @param string          $bundle
+     */
+    protected function updateKernel(KernelInterface $kernel, $baseNamespace, $bundle)
+    {
+        $kernelManipulator = new KernelManipulator($kernel);
+        $kernelManipulator->removeNamespace($baseNamespace);
+        $kernelManipulator->addBundle($bundle);
+    }
+
+    /**
+     * Returns an instance of BundleGenerator.
+     *
+     * @return BundleGenerator
+     */
+    protected function createGenerator()
+    {
+        return new BundleGenerator($this->getContainer()->get('filesystem'));
     }
 }
