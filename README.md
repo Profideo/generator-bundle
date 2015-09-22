@@ -3,13 +3,13 @@
 Il permet de générer des bundles à l'aide d'une commande (`./app/console profideo:generate-bundle`) et de les activer
 dans le noyau de l'application (`./app/AppKernel.php`).
 
-Les bundles doivent être définies dans la configuration de l'application symfony.
+Les bundles doivent être définis dans la configuration de l'application symfony.
 
-D'autres part, un bundle parent peut être définie pour chaque bundle ainsi qu'un préfixe qui sera ajouter au nom de
+D'autres part, un bundle parent peut être défini pour chaque bundle ainsi qu'un préfixe qui sera ajouté au nom de
 la classe du bundle.
 
 La configuration doit être renseignée dans un des fichiers de configuration de l'application. Comme c'est une commande
-destinée à au développeur, le plus judicieux est de le définir dans le fichier `app/config_dev.yml`.
+destinée aux développeurs, le plus judicieux est de le définir dans le fichier `app/config_dev.yml`.
 
 Un exemple de configuration serait  :
 
