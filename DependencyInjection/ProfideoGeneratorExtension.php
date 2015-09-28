@@ -19,6 +19,6 @@ class ProfideoGeneratorExtension extends Extension
 
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('profideo_generator.bundles', $config['bundles']);
+        $container->setParameter('profideo.generator_bundle.bundles', $config['bundles']);
     }
 }

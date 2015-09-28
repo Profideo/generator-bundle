@@ -14,7 +14,7 @@ class GenerateBundlesCommandTest extends GenerateCommandTest
     public function testGenerateBundlesCommand($configs, $expected)
     {
         $container = $this->getContainer();
-        $container->setParameter('profideo_generator.bundles', $configs);
+        $container->setParameter('profideo.generator_bundle.bundles', $configs);
 
         list($namespace, $bundle, $dir, $format, $structure, $parameters) = $expected;
 
@@ -109,7 +109,7 @@ class GenerateBundlesCommandTest extends GenerateCommandTest
     public function testGenerateBundlesCommandException()
     {
         $container = $this->getContainer();
-        $container->setParameter('profideo_generator.bundles', []);
+        $container->setParameter('profideo.generator_bundle.bundles', []);
 
         $command = new GenerateBundlesCommand();
         $command->setContainer($container);

@@ -29,7 +29,7 @@ class GenerateBundlesCommand extends GeneratorCommand
     {
         $container = $this->getContainer();
 
-        $bundles = $container->getParameter('profideo_generator.bundles');
+        $bundles = $container->getParameter('profideo.generator_bundle.bundles');
 
         if (empty($bundles)) {
             throw new \RuntimeException('There is not bundle registered.');
