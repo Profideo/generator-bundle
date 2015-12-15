@@ -14,7 +14,7 @@ class GenerateBundlesCommandTest extends GenerateCommandTest
     public function testGenerateBundlesCommand($configs, $expected)
     {
         $container = $this->getContainer();
-        $container->setParameter('profideo.generator_bundle.bundles', $configs);
+        $container->setParameter('profideo.generator_bundle', $configs);
 
         list($namespace, $bundle, $dir, $format, $structure, $parameters) = $expected;
 
@@ -47,12 +47,10 @@ class GenerateBundlesCommandTest extends GenerateCommandTest
         return [
             [
                 [
-                    [
-                        'name' => 'bundleTest',
-                        'base_namespace' => 'TestNameSpace',
-                        'parent' => null,
-                        'class_prefix' => 'PrefixTest',
-                    ],
+                    'name' => 'bundleTest',
+                    'base_namespace' => 'TestNameSpace',
+                    'parent' => null,
+                    'class_prefix' => 'PrefixTest',
                 ],
                 [
                     'TestNameSpace\BundleTestBundle',
@@ -65,12 +63,10 @@ class GenerateBundlesCommandTest extends GenerateCommandTest
             ],
             [
                 [
-                    [
-                        'name' => 'bundleTest',
-                        'base_namespace' => 'TestNameSpace',
-                        'parent' => 'ParentBundleTest',
-                        'class_prefix' => null,
-                    ],
+                    'name' => 'bundleTest',
+                    'base_namespace' => 'TestNameSpace',
+                    'parent' => 'ParentBundleTest',
+                    'class_prefix' => null,
                 ],
                 [
                     'TestNameSpace\BundleTestBundle',
@@ -83,12 +79,10 @@ class GenerateBundlesCommandTest extends GenerateCommandTest
             ],
             [
                 [
-                    [
-                        'name' => 'bundleTest',
-                        'base_namespace' => 'TestNameSpace',
-                        'parent' => 'ParentBundleTest',
-                        'class_prefix' => 'PrefixTest',
-                    ],
+                    'name' => 'bundleTest',
+                    'base_namespace' => 'TestNameSpace',
+                    'parent' => 'ParentBundleTest',
+                    'class_prefix' => 'PrefixTest',
                 ],
                 [
                     'TestNameSpace\BundleTestBundle',
@@ -109,7 +103,7 @@ class GenerateBundlesCommandTest extends GenerateCommandTest
     public function testGenerateBundlesCommandException()
     {
         $container = $this->getContainer();
-        $container->setParameter('profideo.generator_bundle.bundles', []);
+        $container->setParameter('profideo.generator_bundle', []);
 
         $command = new GenerateBundlesCommand();
         $command->setContainer($container);

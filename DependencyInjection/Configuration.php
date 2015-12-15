@@ -20,16 +20,10 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
              ->children()
-                 ->arrayNode('bundles')
-                     ->prototype('array')
-                          ->children()
-                              ->scalarNode('name')->isRequired()->end()
-                              ->scalarNode('base_namespace')->isRequired()->end()
-                              ->scalarNode('parent')->defaultNull()->end()
-                              ->scalarNode('class_prefix')->defaultNull()->end()
-                          ->end()
-                     ->end()
-                 ->end()
+                  ->scalarNode('name')->isRequired()->end()
+                  ->scalarNode('base_namespace')->isRequired()->end()
+                  ->scalarNode('parent')->defaultNull()->end()
+                  ->scalarNode('class_prefix')->defaultNull()->end()
              ->end();
 
         return $treeBuilder;

@@ -29,43 +29,39 @@ class GenerateBundlesCommand extends GeneratorCommand
     {
         $container = $this->getContainer();
 
-        $bundles = $container->getParameter('profideo.generator_bundle.bundles');
+        $bundle = $container->getParameter('profideo.generator_bundle');
 
-        if (empty($bundles)) {
+        if (empty($bundle)) {
             throw new \RuntimeException('There is not bundle registered.');
         }
 
-        foreach ($bundles as $bundle) {
-            $bundleName = $bundle['class_prefix'].ucfirst($bundle['name']).'Bundle';
-            $namespace = $bundle['base_namespace'].'\\'.ucfirst($bundle['name']).'Bundle';
+        $bundleName = $bundle['class_prefix'].ucfirst($bundle['name']).'Bundle';
+        $namespace = $bundle['base_namespace'].'\\'.ucfirst($bundle['name']).'Bundle';
 
-            $generator = $this->getGenerator();
-            $generator->setSkeletonDirs([__DIR__.'/../Resources/skeleton']);
-            $generator->generate($namespace, $bundleName, 'src', null, null, ['parent' => $bundle['parent']]);
+        $generator = $this->getGenerator();
+        $generator->setSkeletonDirs([__DIR__.'/../Resources/skeleton']);
+        $generator->generate($namespace, $bundleName, 'src', null, null, ['parent' => $bundle['parent']]);
 
-            $output->writeln("Generating the bundle '$namespace\\$bundleName'".
-                             (!empty($bundle['parent']) ? " as child of '{$bundle['parent']}'" : '').
-                             ' : <info>OK</info>');
+        $output->writeln("Generating the bundle '$namespace\\$bundleName'".
+                         (!empty($bundle['parent']) ? " as child of '{$bundle['parent']}'" : '').
+                         ' : <info>OK</info>');
 
-            $this->updateKernel($container->get('kernel'), $bundle['base_namespace'], "$namespace\\$bundleName");
+        $this->updateKernel($container->get('kernel'), $bundle['name'], "$namespace\\$bundleName");
 
-            $output->writeln("Enabling bundle '$namespace\\$bundleName' in AppKernel and disabling others that are".
-                             " included in '{$bundle['base_namespace']}' : <info>OK</info>");
-        }
+        $output->writeln("Enabling bundle '$namespace\\$bundleName' in AppKernel and disabling others that are".
+                         " included in '{$bundle['base_namespace']}' : <info>OK</info>");
     }
 
     /**
-     * Removes all bundles in $baseNamespace and add bundle $bundle.
+     * Add bundle in kernel class.
      *
      * @param KernelInterface $kernel
-     * @param string          $baseNamespace
      * @param string          $bundle
      */
-    protected function updateKernel(KernelInterface $kernel, $baseNamespace, $bundle)
+    protected function updateKernel(KernelInterface $kernel, $name, $bundle)
     {
         $kernelManipulator = new KernelManipulator($kernel);
-        $kernelManipulator->removeNamespace($baseNamespace);
-        $kernelManipulator->addBundle($bundle);
+        $kernelManipulator->addBundle($name, $bundle);
     }
 
     /**
