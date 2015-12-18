@@ -4,14 +4,14 @@ namespace Profideo\GeneratorBundle\Tests\Command;
 
 use Symfony\Component\Console\Tester\CommandTester;
 use Sensio\Bundle\GeneratorBundle\Tests\Command\GenerateCommandTest;
-use Profideo\GeneratorBundle\Command\GenerateBundlesCommand;
+use Profideo\GeneratorBundle\Command\GenerateBundleCommand;
 
-class GenerateBundlesCommandTest extends GenerateCommandTest
+class GenerateBundleCommandTest extends GenerateCommandTest
 {
     /**
-     * @dataProvider getTestGenerateBundlesCommandData
+     * @dataProvider getTestGenerateBundleCommandData
      */
-    public function testGenerateBundlesCommand($configs, $expected)
+    public function testGenerateBundleCommand($configs, $expected)
     {
         $container = $this->getContainer();
         $container->setParameter('profideo.generator_bundle', $configs);
@@ -31,7 +31,7 @@ class GenerateBundlesCommandTest extends GenerateCommandTest
         ;
 
         $command = $this
-            ->getMockBuilder('Profideo\GeneratorBundle\Command\GenerateBundlesCommand')
+            ->getMockBuilder('Profideo\GeneratorBundle\Command\GenerateBundleCommand')
             ->setMethods(['updateKernel'])
             ->getMock()
         ;
@@ -42,7 +42,7 @@ class GenerateBundlesCommandTest extends GenerateCommandTest
         (new CommandTester($command))->execute([]);
     }
 
-    public function getTestGenerateBundlesCommandData()
+    public function getTestGenerateBundleCommandData()
     {
         return [
             [
@@ -100,12 +100,12 @@ class GenerateBundlesCommandTest extends GenerateCommandTest
      * @expectedException        \RuntimeException
      * @expectedExceptionMessage There is not bundle registered.
      */
-    public function testGenerateBundlesCommandException()
+    public function testGenerateBundleCommandException()
     {
         $container = $this->getContainer();
         $container->setParameter('profideo.generator_bundle', []);
 
-        $command = new GenerateBundlesCommand();
+        $command = new GenerateBundleCommand();
         $command->setContainer($container);
 
         (new CommandTester($command))->execute([]);

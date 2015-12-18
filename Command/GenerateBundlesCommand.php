@@ -10,16 +10,16 @@ use Sensio\Bundle\GeneratorBundle\Command\GeneratorCommand;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
- * Generates bundles defined in configuration and enables it in AppKernel.
+ * Generates bundle defined in configuration and enables it in AppKernel.
  */
-class GenerateBundlesCommand extends GeneratorCommand
+class GenerateBundleCommand extends GeneratorCommand
 {
     /**
      * {@inheritdoc}
      */
     protected function configure()
     {
-        $this->setName('profideo:generate-bundles');
+        $this->setName('profideo:generate-bundle');
     }
 
     /**
