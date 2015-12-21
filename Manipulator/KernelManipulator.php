@@ -41,7 +41,7 @@ class KernelManipulator extends Manipulator
                 $this->reflected->getFilename(),
                 str_replace(
                     '    public function registerBundles()',
-                    '    public function getGeneratedBundle($name)'.PHP_EOL.
+                    '    private function getGeneratedBundle($name)'.PHP_EOL.
                     '    {'.PHP_EOL.
                     '        $bundles = array('.PHP_EOL.
                     "            '$name' => new $class(),".PHP_EOL.
