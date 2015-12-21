@@ -1,6 +1,6 @@
 # generator-bundle
 
-Il permet de générer un bundle à l'aide d'une commande (`./app/console profideo:generate-bundle`) et de les activer
+Il permet de générer un bundle à l'aide d'une commande (`./app/console profideo:generate-bundle`) et de les déclarer
 dans le noyau de l'application (`./app/AppKernel.php`).
 
 Le bundle doivent être définis dans la configuration de l'application symfony.
@@ -46,3 +46,6 @@ class AcmeFooBundle extends Bundle
     }
 }
 ```
+
+Après l'exécution de la commande, le bundle est déclaré dans la méthode privée `AppKernel::getGeneratedBundle`. Pour que le bundle généré soit
+fonctionnel, il faut le récupérer en appelant cette méthode dans la méthode `AppKernel::registerBundles` et l'ajouter à la variable `$bundles`.
